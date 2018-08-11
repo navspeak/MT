@@ -54,11 +54,6 @@ public class usingLockProdCons {
             }
             // }
         }
-
-        void doStop() {
-            this.isStopped = true;
-        }
-
         private void sleep(int timeout) {
             try {
                 TimeUnit.SECONDS.sleep(timeout);
@@ -67,6 +62,12 @@ public class usingLockProdCons {
                 e.printStackTrace();
             }
         }
+
+        void doStop() {
+            this.isStopped = true;
+        }
+
+
     }
 
     static class Consumer implements Runnable {

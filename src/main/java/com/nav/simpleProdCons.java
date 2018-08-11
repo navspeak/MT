@@ -112,7 +112,6 @@ public class simpleProdCons {
 
         prodThread.start();
         consThread.start();
-        //===============
 
         TimeUnit.SECONDS.sleep(10);
         System.out.println("Press any key to cancel");
