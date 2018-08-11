@@ -1,6 +1,6 @@
-#MultiThreading
+# MultiThreading
 
-##CPU CACHE
+## CPU CACHE
 
 ![CPU Cache](src/main/resources/CPUCache.PNG)
 
