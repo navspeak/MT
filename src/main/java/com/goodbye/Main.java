@@ -43,8 +43,9 @@ public class Main
 		{
 			// Can ignore
 		}
-		
+		System.out.println("Going to interrupt...");
 		t.interrupt();
+		System.out.println("Interrupted...");
 		
 		try
 		{

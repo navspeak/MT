@@ -38,7 +38,10 @@
 * How the JVM handles Uncaught Exceptions from Threads
    * When a thread throws uncaught unchecked exception, threads's dispatchUncaughtException() is called by the JVM. Uses uncaughtExceptionHandler to determine what to call
    * we can set a Custom Exception Handler by calling setUncaughtExceptionHandler() and passing an instance of a class which implements UncaughtExceptionHandler
-   * Read about thread group (virtually decreptated). ExecutionException also
+   * Read about thread group (virtually decreptated). ExecutionException also.  [Code](https://gist.github.com/navspeak/38030afc47c7648f05236f4d0adbba24)
  * ThreadLocal - Data persists till thread dies. Use threadLocal.remove();
  * Thread stop, suspend, resume - deprecated. [Why?](https://www.javamadesoeasy.com/2015/03/reason-why-suspend-and-resume-methods.html) Use interuppt instead.
  
+ # Sharing Memory across threads
+ * Are finals safe?
+ * Java Memory Model

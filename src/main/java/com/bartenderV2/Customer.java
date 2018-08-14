@@ -1,9 +1,9 @@
-package com.concepts.interrupt;
+package com.bartenderV2;
 
 import java.util.concurrent.TimeUnit;
 
 public class Customer implements Runnable{
-    private final Thread bartenderThread ;
+    private final Thread bartenderThread;
     private final String name;
     private final int waitTime;
 

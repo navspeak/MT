@@ -1,1 +1,5 @@
 ![CPU Cache](src/main/resources/CPUCache.PNG)
+==
+The Java Memory Model defines a set of guarantees which, when applied to a program,
+ensure memory interacts between threads occur in a specified deterministic fashion
+==
