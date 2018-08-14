@@ -9,23 +9,17 @@ import java.util.concurrent.TimeUnit;
 public class DateFormatterExampleThreadLocal {
     public static Set<SimpleDateFormat> dateSet = new HashSet<>();
     public static class DateFormatterThreadLocal extends ThreadLocal<SimpleDateFormat> {
-        DateFormatterThreadLocal() {
-            System.out.println("Ctor of threadLocal Obj");
-        }
         @Override
         protected SimpleDateFormat initialValue() {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE MMM d, hh:mm:ss");
-            dateSet.add(simpleDateFormat);
-            System.out.println(Thread.currentThread().getName() + " has the SimpleDateFormat with ObjectID" + simpleDateFormat);
-            return simpleDateFormat;
+            return new SimpleDateFormat("EEE MMM d, hh:mm:ss");
         }
 
-        @Override
-        public SimpleDateFormat get() {
-            SimpleDateFormat simpleDateFormat = super.get();
-            System.out.println(Thread.currentThread().getName() + " is Returning " + simpleDateFormat);
-            return simpleDateFormat;
-        }
+//        @Override
+//        public SimpleDateFormat get() {
+//            SimpleDateFormat simpleDateFormat = super.get();
+//            System.out.println(Thread.currentThread().getName() + " is Returning " + simpleDateFormat);
+//            return simpleDateFormat;
+//        }
     }
  //   public static SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE MMM d, hh:mm:ss");
     public static DateFormatterThreadLocal dateFormatterVar = new DateFormatterThreadLocal();
@@ -65,9 +59,6 @@ public class DateFormatterExampleThreadLocal {
 
                 Date now = new Date();
                 System.out.println(name + ": " + dateFormatterVar.get().format(now));
-                System.out.println("=============");
-                dateSet.forEach(System.out::println);
-                System.out.println("=============");
             }
         }
     }
