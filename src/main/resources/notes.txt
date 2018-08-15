@@ -3,3 +3,14 @@
 The Java Memory Model defines a set of guarantees which, when applied to a program,
 ensure memory interacts between threads occur in a specified deterministic fashion
 ==
+In C, Volatile means do not cache and no guarantee under MT conds
+Initially Java also meant any thread will see latest value.
+Implemented by no caching or flushing first - mechanism was specified. So technically saying variable is not cacheable is wrong technically.
+
+Ony shared variables can be volatile.
+Finals can't be volatile. Arrays and obj marked volatile means the ref is volatile not the content
+
+Volatile indicates value may be shared between threads. Prevents optimizations based on program order
+
+Volatile is a mean to synch data b/w threads. When reading or writing volatile data, compiler installs menory fences
+===

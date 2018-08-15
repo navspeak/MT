@@ -45,3 +45,5 @@
  # Sharing Memory across threads
  * Are finals safe?
  * Java Memory Model
+ * Volatile - Visibility Guarantee and [Happens-before Guarantee](http://tutorials.jenkov.com/java-concurrency/volatile.html#the-java-volatile-happens-before-guarantee) 
+ 

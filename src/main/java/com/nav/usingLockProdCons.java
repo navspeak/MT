@@ -137,7 +137,7 @@ public class usingLockProdCons {
         prodThread.setName("ProdThread");
         consThread.setName("ConsThread");
 
-        Thread.currentThread().setName("Main");
+        Thread.currentThread().setName("HiHello");
 
         prodThread.start();
         consThread.start();
