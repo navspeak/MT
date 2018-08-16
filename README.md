@@ -43,7 +43,8 @@
  * Thread stop, suspend, resume - deprecated. [Why?](https://www.javamadesoeasy.com/2015/03/reason-why-suspend-and-resume-methods.html) Use interuppt instead.
  
  # Sharing Memory across threads
- * Are finals safe?
+ * Are finals safe? Yes (though not in case where _this_ escapes the constructor). Publishing immutable data removes inconsistency
  * Java Memory Model
  * Volatile - Visibility Guarantee and [Happens-before Guarantee](http://tutorials.jenkov.com/java-concurrency/volatile.html#the-java-volatile-happens-before-guarantee) 
+ * [Single write to non volatile long and double primitive is not done atomically](https://dzone.com/articles/longdouble-are-not-atomic-in-java)
  

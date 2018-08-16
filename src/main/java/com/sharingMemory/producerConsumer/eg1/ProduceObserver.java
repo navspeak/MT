@@ -1,4 +1,4 @@
-package com.sharingMemory.producerConsumer.nowSynchronized;
+package com.sharingMemory.producerConsumer.eg1;
 
 public interface ProduceObserver {
 	void onProduction(Produce produce);

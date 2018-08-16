@@ -1,16 +1,18 @@
-package com.sharingMemory.producerConsumer.nowSynchronized;
+package com.sharingMemory.producerConsumer.eg1;
 
 public class Produce {
 	public static class ProduceBuilder {
 		private int instance;
 		private Color color;
 		
-		public void withInstance(int instance) {
+		public ProduceBuilder instance(int instance) {
 			this.instance = instance;
+			return this;
 		}
 		
-		public void withColor(Color color) {
+		public ProduceBuilder color(Color color) {
 			this.color = color;
+			return this;
 		}
 		
 		public Produce build()
@@ -19,7 +21,7 @@ public class Produce {
 		}
 	}
 	
-	enum Color {Red, Blue, Green, Yellow};
+	enum Color {RED, BLUE, GREEN, YELLOW};
 	
 	private final int instance;
 	private final Color color;
