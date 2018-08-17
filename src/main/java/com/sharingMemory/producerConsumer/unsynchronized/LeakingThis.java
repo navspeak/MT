@@ -1,6 +1,8 @@
 package com.sharingMemory.producerConsumer.unsynchronized;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 /*
 When we construct an object, as long as we don't publish it while it is being constructed,
 i.e. allow "this" to escape, it is guaranteed that other threads will only see initialised final values.
@@ -14,5 +16,7 @@ public class LeakingThis {
         obj1 = new Object();
         this.listThatWillHelpLeak.add(obj1);
         this.listThatWillHelpLeak.add(this);
+
+
     }
 }

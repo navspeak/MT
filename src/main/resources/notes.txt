@@ -14,3 +14,9 @@ Volatile indicates value may be shared between threads. Prevents optimizations b
 
 Volatile is a mean to synch data b/w threads. When reading or writing volatile data, compiler installs menory fences
 ===
+After volatile read the state we are guaranteed to see is the state of the world at the time of volatile write or later.
+If the object is further updated, we may see updates to some but not all.
+This could lead to object in inconsistent state and thus invariant broken.
+Invariants are relationship between parts of the object which must remain consistent.
+We can publish immutable objects as one solution.
+====
