@@ -44,7 +44,13 @@
  
  # Sharing Memory across threads
  * Are finals safe? Yes (though not in case where _this_ escapes the constructor). Publishing immutable data removes inconsistency
- * Java Memory Model
+ * [Java Memory Model](https://www.cs.umd.edu/~pugh/java/memoryModel/jsr-133-faq.html)
  * Volatile - Visibility Guarantee and [Happens-before Guarantee](http://tutorials.jenkov.com/java-concurrency/volatile.html#the-java-volatile-happens-before-guarantee) 
  * [Single write to non volatile long and double primitive is not done atomically](https://dzone.com/articles/longdouble-are-not-atomic-in-java)
  
+ * Deadlock Prevention Strategy (no thread makes progress. Directed Cyclic Graph. Use Jstack):
+    * Always aquire mutexes in same order
+    * If possible replace two mutexes with one
+    * try-lock : not supported by synchronized though (shouldn't be first choice though, can lead it livelock also)
+ * Livelock
+ * Starvation

@@ -2,6 +2,9 @@
 ==
 The Java Memory Model defines a set of guarantees which, when applied to a program,
 ensure memory interacts between threads occur in a specified deterministic fashion
+
+The Java memory model specifies how and when different threads can see values written to shared variables by other threads,
+and how to synchronize access to shared variables when necessary.
 ==
 In C, Volatile means do not cache and no guarantee under MT conds
 Initially Java also meant any thread will see latest value.
@@ -20,3 +23,21 @@ This could lead to object in inconsistent state and thus invariant broken.
 Invariants are relationship between parts of the object which must remain consistent.
 We can publish immutable objects as one solution.
 ====
+String Intern() is a native call. Checks in String Pool (which is part of JVM heap from Java 7 onwards and can be GC'd
+vs PermGen before)
+https://www.baeldung.com/java-string-pool
+
+How can final fields appear to change their values?
+-- A String can be implemented as an object with three fields
+  a character array, an offset into that array, and a length.
+The rationale for implementing String this way, instead of having only the character array, is that it lets multiple
+String and StringBuffer objects share the same character array and avoid additional object allocation and copying.
+So, for example, the method String.substring() can be implemented by creating a new string which shares the same
+character array with the original String and merely differs in the length and offset fields.
+For a String, these fields are all final fields.
+
+String s1 = "/usr/tmp";
+String s2 = s1.substring(4);
+The string s2 will have an offset of 4 and a length of 4. But, under the old model, it was possible for another thread to see the offset as having the default value of 0, and then later see the correct value of 4, it will appear as if the string "/usr" changes to "/tmp".
+
+The original Java Memory Model allowed this behavior; several JVMs have exhibited this behavior. The new Java Memory Model makes this illegal.
