@@ -1,13 +1,18 @@
 package com.two.signalling.restaurant.firstVersion;
 
+import java.util.concurrent.CountDownLatch;
+
 public class Waiter implements Runnable
 {
 	private final String name;
 	private Request currentRequest;
+	private final CountDownLatch latch;
 
-	public Waiter(String name)
+
+	public Waiter(String name, CountDownLatch waitersLatch)
 	{
 		this.name = name;
+		this.latch = waitersLatch;
 	}
 
 	private void waitForCustomerRequest()
@@ -47,6 +52,7 @@ public class Waiter implements Runnable
 	public void run()
 	{
 		System.out.println(name + " has shown up for work.");
+		latch.countDown();
 
 		System.out.println(name + " is waiting for a customer request.");
 		

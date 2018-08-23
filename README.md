@@ -54,3 +54,9 @@
     * try-lock : not supported by synchronized though (shouldn't be first choice though, can lead it livelock also)
  * Livelock
  * Starvation
+ 
+ # Wait, Notify, NotifyAll
+ * Object is associated with a wait set along with a monition. Each object has a wait() method:
+    * Calling wait without synchronizing the object throws IllegalMonitorException
+    * For a thread to wait for a signal requires a condition variable aka wait set. This queues the thread waiting for the condition.
+    * Join works by waiting on a thread instance

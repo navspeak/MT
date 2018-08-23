@@ -2,6 +2,7 @@ package com.two.signalling.restaurant.firstVersion;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class BarRestaurantSimulation
@@ -11,7 +12,7 @@ public final class BarRestaurantSimulation
 	private static final int numWaiters = 5;
 	private static final int numCustomers = 50;
 
-	static final int barOpeningTime = 360;
+	static final int barOpeningTime = 360; // 360 mins = 60 * 60 = 2 hours
 	
 	static volatile boolean closed = true;
 
@@ -23,11 +24,12 @@ public final class BarRestaurantSimulation
 	{
 		Thread[] waiters = new Thread[numWaiters];
 		Thread[] customers = new Thread[numCustomers];
+        CountDownLatch waitersLatch = new CountDownLatch(numWaiters);
 
 		for (int i = 0; i < numWaiters; i++)
 		{
 			String name = "Waiter " + (i + 1);
-			waiters[i] = new Thread(new Waiter(name), name);
+			waiters[i] = new Thread(new Waiter(name, waitersLatch), name);
 		}
 
 		for (int i = 0; i < numCustomers; i++)
@@ -44,7 +46,10 @@ public final class BarRestaurantSimulation
 		{
 			waiters[i].start();
 		}
-
+        try {
+            waitersLatch.await();
+        } catch (InterruptedException ex) {
+        }
 		System.out.println("Restaurant is letting in customers");
 
 		for (int i = 0; i < numCustomers; i++)
