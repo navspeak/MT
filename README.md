@@ -59,4 +59,12 @@
  * Object is associated with a wait set along with a monition. Each object has a wait() method:
     * Calling wait without synchronizing the object throws IllegalMonitorException
     * For a thread to wait for a signal requires a condition variable aka wait set. This queues the thread waiting for the condition.
-    * Join works by waiting on a thread instance
+    * Join works by waiting on a thread instance. Thus we should not use wait on thread directly.
+    * Wait causes the thread to be added to the wait set, release the monitor. Other threads can call notify or notifyAll
+    * Notifying thread must release the monitor as soon as it can, otherwise __Starvation__ cud occur coz awakened thread can't acquire the monitor
+    * NotifyAll() notifies & wakes all the thread, though only one may acquire the monitor. 
+        * This can cause performance issue if there's a large no. of thread.
+        * However, like in case of multiple producers and consumers, you need to notify more than one thread at a time so use notifyAll
+    * Spurious Wakeup - wake from wait without getting notified. 
+    
+    * 

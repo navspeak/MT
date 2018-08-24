@@ -41,3 +41,39 @@ String s2 = s1.substring(4);
 The string s2 will have an offset of 4 and a length of 4. But, under the old model, it was possible for another thread to see the offset as having the default value of 0, and then later see the correct value of 4, it will appear as if the string "/usr" changes to "/tmp".
 
 The original Java Memory Model allowed this behavior; several JVMs have exhibited this behavior. The new Java Memory Model makes this illegal.
+====
+Getting Deadlock with Producer / Consumer model:
+https://stackoverflow.com/questions/37026/java-notify-vs-notifyall-all-over-again
+STEP 1:
+- P1 puts 1 char into the buffer
+
+STEP 2:
+- P2 attempts put - checks wait loop - already a char - waits
+
+STEP 3:
+- P3 attempts put - checks wait loop - already a char - waits
+
+STEP 4:
+- C1 attempts to get 1 char
+- C2 attempts to get 1 char - blocks on entry to the get method
+- C3 attempts to get 1 char - blocks on entry to the get method
+
+STEP 5:
+- C1 is executing the get method - gets the char, calls notify, exits method
+- The notify wakes up P2
+- BUT, C2 enters method before P2 can (P2 must reacquire the lock), so P2 blocks on entry to the put method
+- C2 checks wait loop, no more chars in buffer, so waits
+- C3 enters method after C2, but before P2, checks wait loop, no more chars in buffer, so waits
+
+STEP 6:
+- NOW: there is P3, C2, and C3 waiting!
+- Finally P2 acquires the lock, puts a char in the buffer, calls notify, exits method
+
+STEP 7:
+- P2's notification wakes P3 (remember any thread can be woken)
+- P3 checks the wait loop condition, there is already a char in the buffer, so waits.
+- NO MORE THREADS TO CALL NOTIFY and THREE THREADS PERMANENTLY SUSPENDED!
+
+SOLUTION: Replace notify with notifyAll in the producer/consumer code (above).
+===
+http://tutorials.jenkov.com/java-concurrency/thread-signaling.html#spurious-wakeups

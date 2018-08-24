@@ -17,7 +17,7 @@ public class ProducerConsumerRaceCondition
 	
 	Object consumer() {
 		Object work;
-		
+		// Always have wile loop inside synch block
 		while (queue.isEmpty()) {
 			// Race condition - we will wait [possibly forever] if the producer
 			// adds an item when consumer thread is here

@@ -19,6 +19,15 @@ public class ProducerConsumerWhileLoop
 		Object work;
 		
 		synchronized(queue) {
+		    // queue is empty. So consumer waits on queue's monitor
+            // Producer will put some work on queue and call notify (or notifyAll
+            // if there are multiple producers and consumers
+            // However it could happen that a spurious wakeup caused the wait to be interuppted.
+            // In that case queue.poll will lead to an NPE. Thus, after wait, before actually
+            // continuing, check in a while loop if produced indeed put some work on queue
+            // This solves spurious wakeup issue and also missed signal
+            // In case of time wait check how much time is elapsed to see if it was real notify
+            // or spurious wakeups
 			while (queue.isEmpty()) {
 				try {
 					queue.wait();
@@ -28,6 +37,7 @@ public class ProducerConsumerWhileLoop
 			}
 			
 			work = queue.poll();
+			// In case on multiple, producers and consumer might want to call notify here too
 		}
 		
 		return work;
