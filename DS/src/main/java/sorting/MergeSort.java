@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class MergeSort {
 
     // Merge Sort is a - Stable sort - https://www.geeksforgeeks.org/stability-in-sorting-algorithms/
-    // if we sort an object which has a numeric id and a character id
+    // if we sort a list of object that has two fields - a numeric id & a character id
     // let's represent the object as (10,a) for e.g
     // thus sorting by numeric id
     // (10,a) (10,b), (9,a), (1,b) => (1,b), (9,a), (10,a), (10, b)
