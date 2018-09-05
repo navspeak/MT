@@ -18,6 +18,8 @@ public class MergeSort {
         int mid = arr.length / 2;
         // 1,3,4,6 len = 4, mid = 2 => left = [1,3], right = [4, 5]
         // 1,3,4,5,7 len = 5, mid = 2 => left = [1,3], right = [4, 5, 7]
+
+        /* You could write a while loop and copy. But using Java provided utility for brewity */
         int[] left = Arrays.copyOfRange(arr, 0, mid ); // 0 to mid -1
         int [] right = Arrays.copyOfRange(arr, mid, arr.length); // mid to len - 1
         sort(left);
@@ -34,21 +36,22 @@ public class MergeSort {
             } else
                 arr[k++] = right[j++];
         }
-        // [1,3] & [ 0,2,3] & [0,1,2,3,0] i = 1, j = 3, k = 4
-//        int numOfElements = left.length - i;
-//        System.arraycopy(left,i,arr, k,numOfElements );
-        while (i < left.length) {
-            arr[k++] = left[i++];
-        }
-//        numOfElements = right.length - j ;
-//        System.arraycopy(right,j,arr, k,numOfElements );
-        while (j < right.length) {
-            arr[k++] = right[j++];
-        }
+        int numOfElementsToCopy = left.length - i;
+        System.arraycopy(left,i,arr, k, numOfElementsToCopy );
+        numOfElementsToCopy = right.length - j ;
+        System.arraycopy(right,j,arr, k,numOfElementsToCopy );
+
+// You could write a while loop and copy. But using Java provided utility for brewity */
+//        while (i < left.length) {
+//            arr[k++] = left[i++];
+//        }
+//        while (j < right.length) {
+//            arr[k++] = right[j++];
+//        }
     }
 
     public static void main(String[] args) {
-        int [] arr = {9,2,8,5,3,6};
+        int [] arr = {9,2,2,8,5,3,6};
         System.out.println(Arrays.toString(arr));
         sort(arr);
         System.out.println(Arrays.toString(arr));
