@@ -50,7 +50,7 @@ class CustomerRequestHandler
 	{
 		switch (requestType) {
 			case Request.SEATING_REQUEST:
-				return " has been seated.";
+				return " c";
 			case Request.ORDER_REQUEST:
 				return " has ordered.";
 			case Request.SERVE_REQUEST:

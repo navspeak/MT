@@ -1,7 +1,7 @@
 package com.nav.multithreading;
 
 import java.util.Random;
-
+//https://docs.oracle.com/javase/tutorial/essential/concurrency/guardmeth.html
 public class ProdConsumerExampleDrop {
 
 	static class Drop {

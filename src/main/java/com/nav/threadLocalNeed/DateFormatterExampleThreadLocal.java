@@ -17,7 +17,6 @@ public class DateFormatterExampleThreadLocal {
 //        @Override
 //        public SimpleDateFormat get() {
 //            SimpleDateFormat simpleDateFormat = super.get();
-//            System.out.println(Thread.currentThread().getName() + " is Returning " + simpleDateFormat);
 //            return simpleDateFormat;
 //        }
     }

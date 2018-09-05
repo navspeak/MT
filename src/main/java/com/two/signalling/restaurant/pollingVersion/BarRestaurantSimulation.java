@@ -85,7 +85,7 @@ public final class BarRestaurantSimulation
 				// Shouldn't happen, ignore
 			}
 		}
-		
+		closed = true;
 		// Finally done for the day
 		System.out.println("Restaurant is closed");
 	}

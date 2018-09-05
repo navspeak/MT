@@ -32,7 +32,8 @@
        - isInterupted() checks interupt but doesn't clear. 
        - isAlive() can be used to check if thread is alive or may have exited a timed join
 * Catching Exceptions Thrown from run()
-   * Set uncaughtExeceptionHandler
+   * JVM calls dispatchUncaughtException() on the thread object when run throws a runtime exception
+   * Set uncaughtExeceptionHandler (UncaughtExceptionHandler class with an ExecutionException member)
    * Must wrap checked Exceptions as these can't be thrown from run
 
 * How the JVM handles Uncaught Exceptions from Threads
@@ -67,4 +68,5 @@
         * However, like in case of multiple producers and consumers, you need to notify more than one thread at a time so use notifyAll
     * Spurious Wakeup - wake from wait without getting notified. 
     
-    * 
+* [Never use stop() to stop a thread.](https://stackoverflow.com/questions/16504140/thread-stop-deprecated)
+* [False sharing](https://medium.com/@rukavitsya/what-is-false-sharing-and-how-jvm-prevents-it-82a4ed27da84)  

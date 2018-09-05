@@ -1,4 +1,4 @@
-package com.one.goodbye;
+package com.one.uncaughtExceptionHandler;
 
 import java.util.concurrent.TimeUnit;
 
