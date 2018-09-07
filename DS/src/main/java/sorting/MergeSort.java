@@ -27,7 +27,7 @@ public class MergeSort {
         merge(left, right, arr);
     }
 
-    private static void merge(int[] left, int[] right, int[] arr) {
+    public static void merge(int[] left, int[] right, int[] arr) {
         int i = 0, j = 0, k = 0;
         // [1,3] & [ 0,2,3] & [0,0,0,0,0]
         while (i < left.length && j< right.length ) {

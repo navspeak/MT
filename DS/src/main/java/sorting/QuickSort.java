@@ -2,7 +2,9 @@ package sorting;
 
 import java.util.Arrays;
 import java.util.Random;
-
+// In-palce sorting
+// unstable
+//Space = O(logn). Time = O(n^2) worst, O(nlogn) average
 public class QuickSort {
     public static void sort(int[] arr) {
         sort(arr, 0, arr.length - 1);
