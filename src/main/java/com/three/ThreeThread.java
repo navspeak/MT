@@ -11,41 +11,29 @@ public class ThreeThread {
     static final int NUM_THREADS = 3;
     static final Object lock = new Object();
     static Integer val = 0;
-
-    private static class PrintNumbers  implements Runnable{
-        @Override
-        public void run() {
-            while (val < 10) {
-                synchronized (lock){
-                    final String threadName = Thread.currentThread().getName();
-                    // Thread name is of format "Thread-<number>"
-                    int threadNo = Integer.parseInt(threadName.split("-")[1]) - 1;
-                    if (val % NUM_THREADS == threadNo){
-                        System.out.println(threadName + " is printing " + ++val);
-                    }
-//                    if (val % NUM_THREADS != threadNo)  {
-//                        try {
-//                            lock.wait();
-//                        } catch (InterruptedException e) {/*ignore*/ }
-//                    } else {
-//                        System.out.println(threadName + " is printing " + ++val);
-//                        lock.notify();
-//                    }
+    static Runnable PrintNumbersTask = () -> {
+        while (val < 10) {
+            synchronized (lock) {
+                final String threadName = Thread.currentThread().getName();
+                // Thread name is of format "pool-1-Thread-1 for Executors"
+                int threadNo = Integer.parseInt(threadName.substring(threadName.length()-1)) - 1;
+                // Thread-1 is ThreadNo 0 => It will print 1,4,7...
+                // Thread-2 is ThreadNo 1 => It will print 2,5,9...
+                // Thread-3 is ThreadNo 2 => It will print 3,6,10...
+                if (val % NUM_THREADS == threadNo) {
+                    System.out.println(threadName + " is printing " + ++val);
                 }
             }
         }
-    }
+    };
 
     public static void main(String[] args) throws InterruptedException {
-        Thread thread1 = new Thread(new PrintNumbers(), "Thread-1");
-        Thread thread2 = new Thread(new PrintNumbers(), "Thread-2");
-        Thread thread3 = new Thread(new PrintNumbers(), "Thread-3");
-
-        thread1.start();
-        thread2.start();
-        thread3.start();
-
-        thread1.join();
+        ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
+        for (int i = 0; i < NUM_THREADS; i++) {
+            executorService.submit(PrintNumbersTask);
+        }
+        executorService.shutdown();
+        executorService.awaitTermination(1, TimeUnit.HOURS);
     }
 
 }
