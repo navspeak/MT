@@ -20,14 +20,17 @@ public class ThreeThread {
                     final String threadName = Thread.currentThread().getName();
                     // Thread name is of format "Thread-<number>"
                     int threadNo = Integer.parseInt(threadName.split("-")[1]) - 1;
-                    if (val % NUM_THREADS != threadNo)  {
-                        try {
-                            lock.wait();
-                        } catch (InterruptedException e) {/*ignore*/ }
-                    } else {
+                    if (val % NUM_THREADS == threadNo){
                         System.out.println(threadName + " is printing " + ++val);
-                        lock.notifyAll();
                     }
+//                    if (val % NUM_THREADS != threadNo)  {
+//                        try {
+//                            lock.wait();
+//                        } catch (InterruptedException e) {/*ignore*/ }
+//                    } else {
+//                        System.out.println(threadName + " is printing " + ++val);
+//                        lock.notify();
+//                    }
                 }
             }
         }
