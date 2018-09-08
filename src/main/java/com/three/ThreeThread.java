@@ -10,7 +10,7 @@ public class ThreeThread {
 
     static final int NUM_THREADS = 3;
     static final Object lock = new Object();
-    static int val = 0;
+    static Integer val = 0;
 
     private static class PrintNumbers  implements Runnable{
         @Override
@@ -24,9 +24,10 @@ public class ThreeThread {
                         try {
                             lock.wait();
                         } catch (InterruptedException e) {/*ignore*/ }
+                    } else {
+                        System.out.println(threadName + " is printing " + ++val);
+                        lock.notifyAll();
                     }
-                    System.out.println(threadName + " is printing " + ++val);
-                    lock.notify();
                 }
             }
         }
