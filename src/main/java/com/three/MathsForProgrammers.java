@@ -147,6 +147,7 @@
             System.out.println((short)-1 == (short)0xffff ?
                     "-1 == 0xffff = " + (short)0xffff : "shouldnt be the case");
             // Floating Point numbers
+            float a = 1.2e+10f;
 
             // Effect of widening
             // 0x7ffff is 2 byte -> 0x00007fff is 4 byte int

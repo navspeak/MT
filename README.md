@@ -69,4 +69,5 @@
     * Spurious Wakeup - wake from wait without getting notified. 
     
 * [Never use stop() to stop a thread.](https://stackoverflow.com/questions/16504140/thread-stop-deprecated)
-* [False sharing](https://medium.com/@rukavitsya/what-is-false-sharing-and-how-jvm-prevents-it-82a4ed27da84)  
+* [False sharing](https://medium.com/@rukavitsya/what-is-false-sharing-and-how-jvm-prevents-it-82a4ed27da84)
+* Reentrant Lock uses Bridge pattern  
