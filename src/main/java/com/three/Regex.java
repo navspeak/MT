@@ -18,9 +18,9 @@ public class Regex {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(sentence);
         while(matcher.find()){
-            System.out.print("Start index: " + matcher.start());
-            System.out.print(" End index: " + matcher.end() + " ");
-            System.out.println(matcher.group());
+            System.out.println("Found " + matcher.group() + " at start index: " + matcher.start() +
+                    " end index: " + matcher.end() + " ");
+
         }
 
 //        Short hand Metachar:
@@ -47,6 +47,11 @@ public class Regex {
 //
 //        Quantifiers
 //        admins?$ admin, admins
+// .* => any character 0 or more time
+// .+ => any character 1 or more time
+// .? => any character 0 or 1 time
+// \d?-?\d{3}-\d{3}-\d{4}|\d{3,4} => 1-760-410-9010 or -760-410-9010 or 760-410-9010 or 9010 and also 9010888
+// \b\d{3,4}\b or d{3,4}$
     }
 
 }
