@@ -1,12 +1,13 @@
 package linkedList;
 
-import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 public class GenericLinkedList<T extends Comparable<T>> implements Iterable<T> {
     Node<T> head;
+    Node<T> endNode;
+    int length = 0;
     //constructors
     GenericLinkedList(){};
     GenericLinkedList(T... vals){
@@ -16,84 +17,71 @@ public class GenericLinkedList<T extends Comparable<T>> implements Iterable<T> {
             ptr.next = new Node(vals[i]);
             ptr = ptr.next;
         }
+        endNode = ptr;
+        length = vals.length;
     }
 
     public void addToEnd(T val){
-        Node<T> ptr = head;
-        for(; ptr.next !=null; ptr = ptr.next);
-        ptr.next = new Node(val);
+        if(length == 0){
+            head = new Node(val);
+            endNode = head;
+        } else {
+            assert endNode != null;
+            endNode.next = new Node(val);
+            endNode = endNode.next;
+        }
+        length++;
     }
 
     public void addAtBeginning(T val){
         Node<T> ptr = new Node(val);
+        //endNode = ptr;
         ptr.next = head;
         head = ptr;
+        length++;
     }
 
-    public void  sort(){
-        head = mergesort(head);
+    public GenericLinkedList<T> sort(){
+        GenericLinkedList<T> copyOfOrig = new GenericLinkedList<>();
+        for(T data: this){
+            copyOfOrig.addToEnd(data);
+        }
+        copyOfOrig.head = mergesort(copyOfOrig.head);
+        return copyOfOrig;
     }
-    private Node<T> mergesort(Node<T> node){
-        if (node == null || node.next == null) return node;
-        Node<T> mid = getMid();
-        Node<T> left = node;
-        Node<T> right = mid.next;
+
+    private static<T extends Comparable<T>> Node<T> mergesort(Node<T> head) {
+        if(head == null || head.next == null) return head;
+        Node<T> mid = getMid(head);
+        Node rightHalf = mid.next;
+        Node<T> leftHalf = head;
         mid.next = null;
-        mergesort(left);
-        mergesort(right);
+
+        Node left = mergesort(leftHalf);
+        Node right = mergesort(rightHalf);
+
         return merge(left, right);
     }
 
-    private Node<T> merge(Node<T> left, Node<T> right) {
-        Node<T> ptr1 = left;
-        Node<T> ptr2 = right;
-        Node<T> mergedNode = null;
-        // Copy smalles of left and right to mergedList
-        if (left.data.compareTo(right.data)<0){
-            mergedNode = new Node(ptr1.data);
-            ptr1 = ptr1.next;
+    private static<T extends Comparable<T>> Node<T> merge(Node<T> left, Node<T> right) {
+        if(left == null)   return right;
+        if(right == null)  return left;
+        Node temp = null;
+        if(left.data.compareTo(right.data)<0) {
+            temp = left;
+            temp.next = merge(left.next, right);
         } else {
-            mergedNode = new Node(ptr2.data);
-            ptr2 = ptr2.next;
+            temp = right;
+            temp.next = merge(left, right.next);
         }
-        Node<T> ptr3 = mergedNode;
-
-        while(ptr1 != null && ptr2 !=null){
-            if(ptr1.data.compareTo(ptr2.data)<0) {//ptr/ < ptr2
-                ptr3.next = new Node(ptr1.data);
-                ptr3 = ptr3.next;
-                ptr1 = ptr1.next;
-            } else {
-                ptr3.next = new Node(ptr2.data);
-                ptr3 = ptr3.next;
-                ptr2 = ptr2.next;
-            }
-        }
-
-        if (ptr1 != null){
-            while(ptr1 != null){
-                ptr3.next = new Node(ptr1.data);
-                ptr3 = ptr3.next;
-                ptr1 = ptr1.next;
-            }
-        }
-        if (ptr2 != null){
-            while(ptr2 != null){
-                ptr3.next = new Node(ptr2.data);
-                ptr3 = ptr3.next;
-                ptr2 = ptr2.next;
-            }
-        }
-        return mergedNode;
+        return temp;
     }
-
-    private Node<T> getMid() {
-        if (head == null || head.next == null) return head;
-        Node<T> slow = head;
-        Node<T> fast = head.next;
-        while(fast !=null && fast.next !=null){
-            slow = slow.next;
+    private static<T extends Comparable<T>> Node<T> getMid(Node<T> node) {
+        Node<T> slow = node;
+        Node<T> fast = node;
+        while(fast !=null && fast.next !=null && fast.next.next !=null){
             fast = fast.next.next;
+            slow = slow.next;
         }
         return slow;
     }
@@ -132,10 +120,8 @@ public class GenericLinkedList<T extends Comparable<T>> implements Iterable<T> {
     static class Node<T> {
         T data;
         Node next;
-
-        Node(T val) {
-            this.data = val;
-        }
+        Node(T val) { this.data = val;}
+        public Node() { }
         public String toString() {
             return "" + data;
         }
@@ -147,15 +133,17 @@ public class GenericLinkedList<T extends Comparable<T>> implements Iterable<T> {
 
     private class LinkedListIterator implements Iterator<T> {
         //https://www.geeksforgeeks.org/fail-fast-fail-safe-iterators-java/
-        //We have not implemented fail fast functionality to check for concurrent modification
         private Node<T> nextNode;
+        int expectedModCount;
 
         public LinkedListIterator() {
             nextNode = head;
+            expectedModCount = length;
         }
 
         @Override
         public boolean hasNext() {
+            checkForConcurrentModification();
             return (nextNode != null);
         }
 
@@ -165,6 +153,10 @@ public class GenericLinkedList<T extends Comparable<T>> implements Iterable<T> {
             Node<T> tmp = nextNode;
             nextNode = nextNode.next;
             return tmp.data;
+        }
+
+        private void checkForConcurrentModification() {
+            if (length != expectedModCount) throw new ConcurrentModificationException();
         }
     }
 }

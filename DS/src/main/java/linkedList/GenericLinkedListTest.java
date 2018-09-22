@@ -4,23 +4,28 @@ import java.util.Iterator;
 
 public class GenericLinkedListTest {
     public static void main(String[] args) {
+
+        //Sorting Test
+        GenericLinkedList<Integer> list =
+                new GenericLinkedList<>(8,1,9,7,6,5);
+        System.out.println(list);
+        System.out.println(list.sort());
+
+        // String list
         GenericLinkedList<String> stringList =
                 new GenericLinkedList<>("apple", "guava", "kiwi", "peach", "banana");
-        stringList.addToEnd("Mango");
+        stringList.addToEnd("mango");
         stringList.addAtBeginning("pear");
-        System.out.println(stringList);               //pear->apple->guava->kiwi->peach->banana->Mango->NULL
-        System.out.println(stringList.reverse());     // Mango->banana->peach->kiwi->guava->apple->pear->NULL
-        //TODO - FIX the sort stringList.sort();
-        System.out.println(stringList);
+        System.out.println("List of strings : " + stringList);               //pear->apple->guava->kiwi->peach->banana->Mango->NULL
+        System.out.println("List Reversed : " + stringList.reverse());     // Mango->banana->peach->kiwi->guava->apple->pear->NULL
+        System.out.println("Sorted List : " + stringList.sort());
+        System.out.println("Original List : " + stringList);
         //Iterator testing
         Iterator<String> itr = stringList.iterator();
-        while(itr.hasNext()){
-            // should have thrown concurrent modification exception
-            // if we tried to add while iterating. But does because we
-            // didn't implement fail fast functionality
-            stringList.addAtBeginning("Test");
-        }
-        System.out.println(stringList);//Test->Test->Test->Test->Test->Test->Test->pear->apple->guava->kiwi->peach->banana->Mango->NULL
+//        while(itr.hasNext()){
+//            //Throw Concurrent Modification Exception
+//            stringList.addAtBeginning("Test");
+//        }
         //==============
         GenericLinkedList<Person> personList =
                 new GenericLinkedList<>(new Person("Ram", 34),

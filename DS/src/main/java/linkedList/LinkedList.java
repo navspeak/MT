@@ -98,5 +98,26 @@ public class LinkedList {
         Node head2 = createList(1,2,3,4,5,6,7,8);
         print(head2);
         print(reverse_ingroup(head2, 3));
+
+        Node list1 = createList(2,6,8,9);
+        Node list2 = createList(1,2,4,6,9);
+        print(list1);
+        print(list2);
+        Node mergedList = merge(list1, list2); //mutates list1, list2
+        print(mergedList);
+    }
+
+    private static Node merge(Node list1, Node list2) {
+        if (list1 == null) return list2;
+        if (list2 == null) return list1;
+        Node tmp = null;
+        if (list1.data < list2.data){
+            tmp = list1;
+            tmp.next = merge(list1.next, list2);
+        } else{
+            tmp = list2;
+            tmp.next = merge(list1, list2.next);
+        }
+        return tmp;
     }
 }
