@@ -104,7 +104,7 @@ public class LinkedList {
         print(list1);
         print(list2);
         Node mergedList = merge(list1, list2); //mutates list1, list2
-        print(mergedList);
+        print(mergedList);// 1->2->2->4->6->6->8->9->9->NULL
     }
 
     private static Node merge(Node list1, Node list2) {
@@ -119,5 +119,33 @@ public class LinkedList {
             tmp.next = merge(list1, list2.next);
         }
         return tmp;
+    }
+
+    private static Node merge_itr(Node one, Node two) {
+        if (one == null) return two;
+        if (two == null) return one;
+        if (one == null && two == null) return null;
+        Node ret = null;
+        if (one.data < two.data) {
+            ret = one;
+            one = one.next;
+        } else {
+            ret = two;
+            two = two.next;
+        }
+        Node tmp = ret;
+        while(one!=null && two!=null) {
+            if (one.data < two.data) {
+                tmp.next = one;
+                one = one.next;
+            } else {
+                tmp.next = two;
+                two = two.next;
+            }
+            tmp = tmp.next;
+        }
+        if (one !=null) tmp.next = one;
+        if (two !=null) tmp.next = two;
+        return ret;
     }
 }

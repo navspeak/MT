@@ -1,5 +1,5 @@
 package linkedList;
-
+//https://www.geeksforgeeks.org/flattening-a-linked-list/
 public class FlattenALinkedList {
     public static void main(String[] args) {
         /* Let us create the following linked list
@@ -15,29 +15,65 @@ public class FlattenALinkedList {
        30               45
     */
         Node head = createSampleMultiLevelList();
-        Node flattenedList = head;
-        for (Node ptr = head; ptr!=null; ptr = ptr.next){
-            if (ptr.down !=null) {
-                flattenedList = merge(flattenedList, ptr.down);
-            }
-            ptr = ptr.next;
-        }
+       // Node flattenedList = flatten_rec(head);
+        Node flattenedList = flatten_itr(head);
         print(flattenedList);
     }
 
-    private static Node merge(Node one, Node two) {
+    private static Node flatten_rec(Node head) {
+        if (head == null || head.next == null) return head;
+        return merge_rec(head, flatten_rec(head.next));
+    }
+
+    private static Node merge_rec(Node one, Node two) {
         if (one == null) return two;
         if (two == null) return one;
 
         Node tmp = null;
         if (one.data < two.data){
             tmp = one;
-            tmp.next = merge(one.next, two);
+            tmp.down = merge_rec(one.down, two);
         } else {
             tmp = two;
-            tmp.next = merge(one, two.next);
+            tmp.down = merge_rec(one, two.down);
         }
         return tmp;
+    }
+
+
+    private static Node flatten_itr(Node head) {
+        Node flattenedList = head;
+        for (Node ptr = head; ptr!=null; ptr = ptr.next){
+            flattenedList = merge_itr(flattenedList, ptr.next);
+        }
+        return flattenedList;
+    }
+    private static Node merge_itr(Node one, Node two) {
+        if (one == null) return two;
+        if (two == null) return one;
+        if (one == null && two == null) return null;
+        Node ret = null;
+        if (one.data < two.data) {
+            ret = one;
+            one = one.down;
+        } else {
+            ret = two;
+            two = two.down;
+        }
+        Node tmp = ret;
+        while(one!=null && two!=null) {
+            if (one.data < two.data) {
+                tmp.down = one;
+                one = one.down;
+            } else {
+                tmp.down = two;
+                two = two.down;
+            }
+            tmp = tmp.down;
+        }
+        if (one !=null) tmp.down = one;
+        if (two !=null) tmp.down = two;
+        return ret;
     }
 
     private static Node createSampleMultiLevelList() {
@@ -80,12 +116,27 @@ public class FlattenALinkedList {
 
         @Override
         public String toString() {
-            return ""+data;
+            return data+"";
+//            if (this.next == null && this.down == null)
+//                return data+"->Null";
+//            else {
+//                StringBuilder sb = new StringBuilder();
+//                sb.append("  [Across] ");
+//                for (Node ptr = this; ptr != null; ptr = ptr.next) {
+//                    sb.append(ptr.data).append("->");
+//                }
+//                sb.append("Null").append(" [Down]  ");
+//                for (Node ptr = this; ptr != null; ptr = ptr.down) {
+//                    sb.append(ptr.data).append("->");
+//                }
+//                sb.append("Null");
+//                return sb.toString();
+//            }
         }
     }
 
     public static void print(Node node){
-        for (Node ptr = node; ptr!=null; ptr = ptr.next){
+        for (Node ptr = node; ptr!=null; ptr = ptr.down){
             System.out.print(ptr.data+"->");
         }
         System.out.print("NULL\n");
