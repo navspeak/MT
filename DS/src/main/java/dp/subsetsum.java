@@ -15,6 +15,27 @@ public class subsetsum {
     public static void main(String[] args) {
         int[] arr = {2,6,4,10}; int sum = 16;
         System.out.println(countSubsetsDP(arr, sum));//should be 2
+
+        int [] arr1 = {5,2,3,6,3,5,8}; int sum1 = 12;
+        System.out.println(countSubsetsDP(arr1, sum1));//should be 2
+
+        int [] arr2 = {2, 3, 5, 6, 8, 10}; int sum2 = 10;
+        System.out.println(countSubsetsDP(arr2, sum2));//should be 3
+
+        int [] arr3 = {1, 2, 3, 4, 5}; int sum3 = 10;
+        System.out.println(countSubsetsDP(arr3, sum3));//should be 3
+
+//        Input : arr[] = {2, 3, 5, 6, 8, 10}
+//        sum = 10
+//        Output : 5 2 3
+//        2 8
+//        10
+//
+//        Input : arr[] = {1, 2, 3, 4, 5}
+//        sum = 10
+//        Output : 4 3 2 1
+//        5 3 2
+//        5 4 1
     }
 
     // It's easy to wrap the head around with recursive solution
