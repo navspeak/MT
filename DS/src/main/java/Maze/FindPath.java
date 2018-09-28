@@ -1,7 +1,4 @@
-package Matrix;
-
-import java.util.ArrayList;
-import java.util.List;
+package Maze;
 
 public class FindPath {
     public static final int N = 3;
