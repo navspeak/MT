@@ -14,7 +14,6 @@ public class HeapSort {
     }
 
 
-
     private static void heapify(int[] arr, int end) {
         int i = getParentIndex(end);
         if (!hasLeftChild(i, end)) return;
