@@ -50,19 +50,6 @@ public class subsetsum {
     //                 : if sum = 0 => 1 solution possible and i.e. empty set
     //                 : if sum < 0 => 0 no solution possible
 
-//                                            F(A, 16, 3)
-//                                  F(A, 6, 2) + F (A, 16, 2)
-//                             F(A,2,1)+F(A,6,1)   F(A,16,1)
-//
-//    A = [5,2,3,6,3,5,8] => 12
-//            0 1 2 3 4 5 6
-//
-//            12:6 = 12:5 + 4:5
-//            12:5 = 12:4 + 7:4
-//            12:4 = 12:3 + 9:3
-//            12:3 = 12:2 + 6:2
-//            12:2 = 12:1 + 9:1
-//            12:1
     static int countSubsets(int[] arr, int sum){
         Map<String, Integer> memo = new HashMap<>();
         return countSubsets(arr, sum, arr.length - 1, memo);
@@ -85,15 +72,6 @@ public class subsetsum {
     }
 
     static int countSubsetsDP(int[] arr, int sum){
-        // T[i][j] = With array ending at i-th, how many ways can we get j
-        // [i][j] = T[i-1][j-a[i]] + T[i-1][j]
-        // e.g [2,6,4,10]
-//           0 1 2 3 4 5 6 7 8 9 10 11 12 13 14
-//        0  1 0 0 0 0 0 0 0 0 0 0  0   0  0 0
-//        2  0 1
-//        6  0
-//        4  0
-//       10  0
         int T[][] = new int[arr.length+1][sum+1];
         T[0][0] = 1; // taking no elements how many ways can we get 0 => 1
         for (int j = 1; j <= sum ; j++) {

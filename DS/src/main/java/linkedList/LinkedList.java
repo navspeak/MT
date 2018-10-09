@@ -103,25 +103,52 @@ public class LinkedList {
         Node list2 = createList(1,2,4,6,9);
         print(list1);
         print(list2);
-        Node mergedList = merge(list1, list2); //mutates list1, list2
+        Node mergedList = mergeSorted(list1, list2); //mutates list1, list2
         print(mergedList);// 1->2->2->4->6->6->8->9->9->NULL
+
+        System.out.println("Merge K Lists");
+        Node listA = createList(2,6,8,9);
+        Node listB = createList(1,2,4,6,9);
+        Node listC = createList(0,6,7,8);
+        Node listD = createList(-2, 5,12,90);
+        print(listA);
+        print(listB);
+        print(listC);
+        print(listD);
+        Node[] nodes = {listA, listB, listC, listD};
+        Node mergedKList = mergeKSortedList(nodes, 0, nodes.length - 1); //mutates list1, list2
+        print(mergedKList);// 1->2->2->4->6->6->8->9->9->NULL
     }
 
-    private static Node merge(Node list1, Node list2) {
+    private static Node mergeSorted(Node list1, Node list2) {
         if (list1 == null) return list2;
         if (list2 == null) return list1;
         Node tmp = null;
         if (list1.data < list2.data){
             tmp = list1;
-            tmp.next = merge(list1.next, list2);
+            tmp.next = mergeSorted(list1.next, list2);
         } else{
             tmp = list2;
-            tmp.next = merge(list1, list2.next);
+            tmp.next = mergeSorted(list1, list2.next);
         }
         return tmp;
     }
 
-    private static Node merge_itr(Node one, Node two) {
+
+    private static Node mergeKSortedList(Node[] nodes, int start, int end){
+        int length = end - start + 1;
+        if (length == 0 ) return null;
+        if (length == 1 ) return nodes[start];
+        if (length == 2 ) {
+            return mergeSorted(nodes[start], nodes[end]);
+        }
+        int mid = length / 2;
+        Node left = mergeKSortedList(nodes, start, mid);
+        Node right = mergeKSortedList(nodes, mid + 1, end);
+        return mergeSorted(right, left);
+    }
+
+    private static Node mergeSorted_itr(Node one, Node two) {
         if (one == null) return two;
         if (two == null) return one;
         if (one == null && two == null) return null;
@@ -148,4 +175,5 @@ public class LinkedList {
         if (two !=null) tmp.next = two;
         return ret;
     }
+
 }

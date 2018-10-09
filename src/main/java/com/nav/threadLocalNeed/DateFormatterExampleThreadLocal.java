@@ -9,16 +9,19 @@ import java.util.concurrent.TimeUnit;
 public class DateFormatterExampleThreadLocal {
     public static Set<SimpleDateFormat> dateSet = new HashSet<>();
     public static class DateFormatterThreadLocal extends ThreadLocal<SimpleDateFormat> {
+        DateFormatterThreadLocal(){
+            System.out.println(Thread.currentThread().getName() + " constructing DateFormatterThreadLocal");
+        }
         @Override
         protected SimpleDateFormat initialValue() {
             return new SimpleDateFormat("EEE MMM d, hh:mm:ss");
         }
 
-//        @Override
-//        public SimpleDateFormat get() {
-//            SimpleDateFormat simpleDateFormat = super.get();
-//            return simpleDateFormat;
-//        }
+        @Override
+        public SimpleDateFormat get() {
+            SimpleDateFormat simpleDateFormat = super.get();
+            return simpleDateFormat;
+        }
     }
  //   public static SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE MMM d, hh:mm:ss");
     public static DateFormatterThreadLocal dateFormatterVar = new DateFormatterThreadLocal();
