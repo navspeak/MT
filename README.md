@@ -2,6 +2,7 @@
 
 * CPU CACHEs - L1, l2 and L3 caches
 * use lscpu on Unix or WMIC CPU Get /Format:List on windows to see L1, L2 Caches
+* False Caching : https://medium.com/@bkodirov/threading-in-java-55ec2e184fe7
 * Creating threads:
    * Extending Thread class | implement Runnable (preferred)
    * Thread also extends Runnable
