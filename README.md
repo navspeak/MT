@@ -15,10 +15,11 @@
    * NEW  -> Runnable -> Terminated 
    * NEW - start() is called. Calling start() twice throws illegal Thread State exception
    * getState() returns Thread.State enum
+* Thread wait()
 * Sleep 
    * static method on Thread. Causes thread to go into Timed waiting state
       
-         NEW -> Runnable -> Terminted
+         NEW -> Runnable -> Terminated
                 |    |
               Timed-waiting
    * Sleep takes nano seconds but it rounds to millisecond

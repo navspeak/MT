@@ -19,6 +19,7 @@ public class MinStack {
 
     public static void main(String[] args) {
         MinStack minstack = new MinStack();
+        System.out.println();
         minstack.push(10);
         System.out.println("===========");
         System.out.println(minstack.top() == 10);
@@ -89,6 +90,7 @@ public class MinStack {
         actualstack.add(num);
         if (size == 0 || num < getMin()) {
             minimumstack.add(num);
+            System.out.println();
         }
         else {
             minimumstack.add(getMin());;
