@@ -7,24 +7,35 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CompletionService;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
-
+import java.util.concurrent.*;
 
 
 public class A {
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, ExecutionException {
 		ExecutorService executorService = Executors.newFixedThreadPool(3, new MyThreadFactory("Nav"));
 		executorService.execute(A::printThreadNameTask);
 		executorService.execute(A::printThreadNameTask);
 		executorService.execute(A::printThreadNameTask);
+
+		// infact we could write above as because Executor interface has execute method
+		// unless we want other methods like submit() we can use Executor Interface only
+		Executor executor = Executors.newFixedThreadPool(3, new MyThreadFactory("Nav"));
+		executor.execute(A::printThreadNameTask);
+		executor.execute(A::printThreadNameTask);
+		executor.execute(A::printThreadNameTask);
+
 		
+
+		//Execute = Fire and Forget
+		// Submit = inspect via Future
+
+		ExecutorService executorService1 = Executors.newCachedThreadPool();
+		Future<?> future1 =executorService1.submit(A::printThreadNameTask);
+		Future<?> future2 =executorService1.submit(A::printThreadNameTask);
+		Future<?> future3 =executorService1.submit(A::printThreadNameTask);
+
+		Object x = future1.get();
+
 		ExecutorService executorService2 = Executors.newCachedThreadPool( new MyThreadFactory("Nav"));
 		CompletionService<Integer> completionService = new ExecutorCompletionService<>(executorService2);
 		for (int i = 0; i < 5;i++) {

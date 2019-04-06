@@ -2,7 +2,7 @@ package com.nav.again;
 
 public class AThreeThreads {
 
-    public static Integer val = new Integer(0);
+    public static Integer val = 0;
     public static final Object lock = new Object();
 
    static Runnable printTask = () -> {

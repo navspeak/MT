@@ -1,9 +1,6 @@
 package com.nav;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -130,6 +127,8 @@ public class usingLockProdCons {
         Condition qEmpty = lock.newCondition();
         Producer prod = new Producer(q, lock, qFull, qEmpty);
         Consumer cons = new Consumer(q, lock, qFull, qEmpty);
+
+
 
         Thread prodThread = new Thread(prod);
         Thread consThread = new Thread(cons);

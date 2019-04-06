@@ -120,7 +120,7 @@ public class App {
 			try {
 				return f.get(); //blocks
 			} catch(Exception e){
-	            throw new IllegalStateException(e);				
+	            throw new IllegalStateException(e);
 			}
 	})
 	.forEach(System.out::println);
@@ -140,7 +140,7 @@ public class App {
 // REENTRANT LOCK
 		Lock lock = new ReentrantLock();
 		if(lock.tryLock()) {
-			
+
 		}
 // COMPLETION SERVICE
 		System.out.println("---------------------");
@@ -152,6 +152,8 @@ public class App {
 		}
 		e.shutdown();
 		System.out.println(e.isTerminated());
+
+
 		
 		for(int i = 0; i< 4; i++){
 			System.out.println(csv.take().get());
