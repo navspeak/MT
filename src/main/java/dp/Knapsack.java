@@ -46,7 +46,34 @@ public class Knapsack {
                 t[i][j] = Math.max(profitConsideringCurrentIntem, profitSkippingCurrentItem);
             }
         }
+        printParticipants(values, wts, capacity, t);
         return t[values.length][capacity];
+    }
+
+    private void printParticipants(int[] values, int[] wts, int capacity, int[][] t) {
+          /*
+                       0  1  2  3  4  5  6  7
+          {}   {}   0  0  0  0  0  0  0  0  0
+           1   1    1  0  1  1  1  1  1  1  1
+           6   2    2  0  1  6  7  7  7  7  7
+           10  3    3  0  1  6  10 11 17
+           16  5    4  0
+         */
+        int row = values.length;
+        int col = capacity;
+        int TotalProfit = t[row][col];
+        int profit = TotalProfit;
+        while(row>0 && col > 0){
+            if (profit != t[row-1][col]) {
+                System.out.printf("Taking value = %d, weight = %d \n",
+                        values[row-1], wts[row-1]);
+                col = col - wts[row - 1];
+                row--;
+            } else {
+                row--;
+            }
+        }
+        System.out.println("We get " + TotalProfit);
     }
 
 
