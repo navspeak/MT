@@ -21,7 +21,7 @@ public class ACompletionServiceExample {
 		Task<String> task4 = new Task<>("task4");
 		Task<String> task5 = new Task<>("task5");
 		executorService.invokeAll(Arrays.asList(task1,task2,task3,task5));
-		
+
 		CompletionService<String> completionService = new ExecutorCompletionService<>(executorService);
 		
 		Future<String> f1 = completionService.submit(task1);
@@ -51,5 +51,22 @@ public class ACompletionServiceExample {
 			return taskName+" Finished";
 		}
 		
+	}
+
+	public static class Task1<T>  {
+		String taskName;
+
+		public Task1(String name) {
+			taskName = name;
+		}
+
+
+		public String doTask() throws Exception {
+			System.out.println(Thread.currentThread().getName() + " is running " + taskName);
+			TimeUnit.SECONDS.sleep(30);
+			System.out.println(Thread.currentThread().getName() + " has run " + taskName);
+			return taskName+" Finished";
+		}
+
 	}
 }

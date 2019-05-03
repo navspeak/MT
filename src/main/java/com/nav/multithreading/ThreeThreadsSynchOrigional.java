@@ -29,9 +29,9 @@ public class ThreeThreadsSynchOrigional {
 	public static void main(String[] args) {
 		ThreeThreadsSynchOrigional obj = new ThreeThreadsSynchOrigional();
 
-		ThreadTask t1 = obj.new ThreadTask(0); //0,3,6,9
-		ThreadTask t2 = obj.new ThreadTask(1); //1,4,7,10
-		ThreadTask t3 = obj.new ThreadTask(2); //2,5,8,11
+		PrintNumberTask t1 = obj.new PrintNumberTask(0); //0,3,6,9
+		PrintNumberTask t2 = obj.new PrintNumberTask(1); //1,4,7,10
+		PrintNumberTask t3 = obj.new PrintNumberTask(2); //2,5,8,11
 
 		Thread thread1 = new Thread(t1, "One");
 		Thread thread2 = new Thread(t2, "Two");
@@ -42,11 +42,11 @@ public class ThreeThreadsSynchOrigional {
 		thread3.start();
 	}
 
-	private class ThreadTask implements Runnable {
+	private class PrintNumberTask implements Runnable {
 
 		private final int threadPosition;
 
-		public ThreadTask(int i) {
+		public PrintNumberTask(int i) {
 			super();
 			this.threadPosition = i;
 
