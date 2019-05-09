@@ -34,14 +34,14 @@ public class FindPath {
 
     private static void findPaths(int x, int y, String paths) {
         if (x == destx){
-            for (int i = y; i < N ; i++) {
+            for (int i = y; i <= desty ; i++) {
                 paths = paths + "-" + arr[x][i];
             }
             System.out.println(paths);
             return;
         }
         if (y == desty){
-            for (int i = x; i < N ; i++) {
+            for (int i = x; i <= destx ; i++) {
                 paths = paths + "-" + arr[i][y];
             }
             System.out.println(paths);
